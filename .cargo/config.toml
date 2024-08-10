@@ -1,0 +1,69 @@
+[alias]
+b = "build"
+br = "build --release"
+r = "run"
+rr = "run --release"
+rrl = "run --profile release-lto"
+t = "test"
+cl = "clippy -- -Wclippy:all -Wclippy::pedantic -Wclippy::cargo"
+
+
+[build]
+jobs = 10
+rustc = "rustc"
+rustdoc = "rustdoc"
+target-dir = "target"
+incremental = true
+
+
+[profile.dev]
+opt-level = 0
+debug = true
+split-debuginfo = '...'
+strip = "none"
+debug-assertions = true
+overflow-checks = true
+lto = false
+panic = 'unwind'
+incremental = true
+codegen-units = 256
+rpath = false
+
+
+[profile.release]
+opt-level = 3
+debug = false
+split-debuginfo = '...'
+strip = true
+debug-assertions = false
+overflow-checks = false
+lto = "off"
+panic = 'unwind'
+incremental = true
+codegen-units = 16
+rpath = false
+
+
+[profile.release-lto]
+inherits = "release"
+opt-level = 3
+debug = false
+split-debuginfo = '...'
+strip = true
+debug-assertions = false
+overflow-checks = false
+lto = "fat"
+panic = 'unwind'
+incremental = true
+codegen-units = 16
+rpath = false
+
+
+[term]
+quiet = false
+verbose = false
+color = 'always'
+hyperlinks = true
+unicode = true
+progress.when = 'always'
+progress.width = 80
