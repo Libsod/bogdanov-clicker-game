@@ -58,6 +58,6 @@ async fn main() -> Result<(), macroquad::Error> {
             },
         );
 
-        next_frame().await
+        next_frame().await;
     }
 }
