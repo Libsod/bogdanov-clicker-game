@@ -6,17 +6,31 @@ struct Size {
 }
 
 struct Bogdanov<'a> {
-    photo: Texture2D,
     text: &'a str,
+    photo: Texture2D,
     font: Font,
     size: Size,
 }
 
 impl<'a> Bogdanov<'a> {
+    async fn new(
+        text: &'a str,
+        photo: Texture2D,
+        font: Font,
+        size: Size,
+    ) -> Result<Bogdanov<'a>, macroquad::Error> {
+        Ok(Bogdanov {
+            text,
+            photo,
+            font,
+            size,
+        })
+    }
+
     async fn default() -> Result<Bogdanov<'a>, macroquad::Error> {
         Ok(Bogdanov {
-            photo: load_texture("./assets/bogdanov.png").await?,
             text: "BOGDANOV.NET",
+            photo: load_texture("./assets/bogdanov.png").await?,
             font: load_ttf_font("./assets/fonts/Minecraft-font.ttf").await?,
             size: Size {
                 font: 8 * 8,
