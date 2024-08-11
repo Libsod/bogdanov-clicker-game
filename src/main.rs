@@ -10,15 +10,16 @@ struct Sprite<'a> {
     texture: &'a Texture2D,
     width: f32,
     height: f32,
-    anchor: Vec2
+    anchor: Vec2,
 }
+
 impl<'a> Sprite<'a> {
     pub fn new(texture: &'a Texture2D) -> Self {
         Self {
             texture,
             width: texture.width(),
             height: texture.height(),
-            anchor: vec2(0.0, 0.0)
+            anchor: vec2(0.0, 0.0),
         }
     }
 
@@ -27,6 +28,7 @@ impl<'a> Sprite<'a> {
         self.height = height;
         self
     }
+
     pub fn with_anchor(mut self, anchor: Vec2) -> Self {
         self.anchor = anchor;
         self
@@ -41,7 +43,7 @@ impl<'a> Sprite<'a> {
             DrawTextureParams {
                 dest_size: Some(vec2(self.width, self.height)),
                 ..Default::default()
-            }
+            },
         );
     }
 }
@@ -64,10 +66,7 @@ async fn main() -> Result<(), macroquad::Error> {
         let center_x = sw / 2.0;
         let center_y = sh / 2.0;
 
-        bogdanov_sprite.draw(
-            center_x,
-            center_y,
-        );
+        bogdanov_sprite.draw(center_x, center_y);
 
         draw_text_ex(
             TITLE,
