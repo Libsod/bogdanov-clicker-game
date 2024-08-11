@@ -1,9 +1,6 @@
 use macroquad::prelude::*;
 use miniquad::window::screen_size;
 
-const TITLE: &str = "BOGDANOV.NET";
-const TITLE_FONT_SIZE: u16 = 64;
-
 /// Sprite
 #[derive(Debug)]
 struct Sprite<'a> {
@@ -50,10 +47,13 @@ impl<'a> Sprite<'a> {
 
 #[macroquad::main("BOGDANOV.NET")]
 async fn main() -> Result<(), macroquad::Error> {
-    let bogdanov_tex = load_texture("./assets/bogdanov.png").await?;
+    const TITLE: &str = "BOGDANOV.NET";
+    const TITLE_FONT_SIZE: u16 = 64;
+
+    let bogdanov_texture = load_texture("./assets/bogdanov.png").await?;
     let title_font = load_ttf_font("./assets/fonts/Minecraft-font.ttf").await?;
 
-    let bogdanov_sprite = Sprite::new(&bogdanov_tex)
+    let bogdanov_sprite = Sprite::new(&bogdanov_texture)
         .with_size(400.0, 400.0)
         .with_anchor(vec2(0.5, 0.5));
 
