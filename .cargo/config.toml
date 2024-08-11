@@ -5,7 +5,7 @@ r = "run"
 rr = "run --release"
 rrl = "run --profile release-lto"
 t = "test"
-cl = "clippy -- -Wclippy:all -Wclippy::pedantic -Wclippy::cargo"
+cl = "clippy -- -Wclippy::all -Wclippy::pedantic -Wclippy::cargo"
 
 
 [build]
