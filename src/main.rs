@@ -36,7 +36,7 @@ impl<'a> Sprite<'a> {
 
     pub fn draw(&self, x: f32, y: f32) {
         draw_texture_ex(
-            &self.texture,
+            self.texture,
             x - self.width * self.anchor.x,
             y - self.height * self.anchor.y,
             WHITE,
