@@ -66,7 +66,6 @@ async fn main() -> Result<(), macroquad::Error> {
         let time = get_time() as f32;
         let (screen_w, screen_h) = screen_size();
         let center_x = screen_w / 2.0;
-        let center_y = screen_h / 2.0;
         let mouse_pos: Vec2 = mouse_position().into();
 
         // Moving bogdanov
@@ -99,10 +98,7 @@ async fn main() -> Result<(), macroquad::Error> {
         // Drawing
         clear_background(WHITE);
 
-        bogdanov_sprite.draw(
-            bogdanov_rect.x,
-            bogdanov_rect.y,
-        );
+        bogdanov_sprite.draw(bogdanov_rect.x, bogdanov_rect.y);
 
         let title_offset_x = (time * 6.0).cos() * 10.0;
         let title_offset_y = (time * 6.0).sin().abs() * -10.0;
