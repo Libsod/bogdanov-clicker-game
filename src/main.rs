@@ -7,7 +7,6 @@ struct Sprite<'a> {
     texture: &'a Texture2D,
     width: f32,
     height: f32,
-    anchor: Vec2,
 }
 
 impl<'a> Sprite<'a> {
@@ -16,7 +15,6 @@ impl<'a> Sprite<'a> {
             texture,
             width: texture.width(),
             height: texture.height(),
-            anchor: vec2(0.0, 0.0),
         }
     }
 
@@ -26,16 +24,11 @@ impl<'a> Sprite<'a> {
         self
     }
 
-    pub fn with_anchor(mut self, anchor: Vec2) -> Self {
-        self.anchor = anchor;
-        self
-    }
-
     pub fn draw(&self, x: f32, y: f32) {
         draw_texture_ex(
             self.texture,
-            x - self.width * self.anchor.x,
-            y - self.height * self.anchor.y,
+            x,
+            y,
             WHITE,
             DrawTextureParams {
                 dest_size: Some(vec2(self.width, self.height)),
