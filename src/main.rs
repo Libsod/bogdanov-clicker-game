@@ -44,6 +44,8 @@ async fn main() -> Result<(), macroquad::Error> {
     const TITLE_FONT_SIZE: u16 = 64;
     const BOGDANOV_SPEED: f32 = 4.0;
 
+    let (screen_w, screen_h) = screen_size();
+
     let mut points: usize = 0;
 
     let bogdanov_texture = load_texture("./assets/bogdanov.png").await?;
@@ -51,7 +53,12 @@ async fn main() -> Result<(), macroquad::Error> {
 
     let mut bogdanov_scale = 1.0;
     let mut bogdanov_dir = vec2(1.0, 1.0);
-    let mut bogdanov_rect = Rect::new(0.0, 0.0, 200.0, 200.0);
+    let mut bogdanov_rect = Rect::new(
+        rand::gen_range(0.0, screen_w - 200.0),
+        rand::gen_range(0.0, screen_h - 200.0),
+        200.0,
+        200.0,
+    );
     let mut bogdanov_sprite = Sprite::new(&bogdanov_texture)
         .with_size(bogdanov_rect.w, bogdanov_rect.h);
 
