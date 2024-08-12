@@ -1,4 +1,4 @@
-use macroquad::prelude::*;
+use macroquad::{audio::{load_sound, play_sound_once}, prelude::*};
 use miniquad::window::screen_size;
 
 /// Sprite
@@ -50,6 +50,8 @@ async fn main() -> Result<(), macroquad::Error> {
 
     let bogdanov_texture = load_texture("./assets/bogdanov.png").await?;
     let title_font = load_ttf_font("./assets/fonts/Minecraft-font.ttf").await?;
+    let raaah_sound = load_sound("./assets/sounds/raaah.ogg").await?;
+    let scream_sound = load_sound("./assets/sounds/scream.ogg").await?;
 
     let mut bogdanov_scale = 1.0;
     let mut bogdanov_dir = vec2(1.0, 1.0);
@@ -105,6 +107,11 @@ async fn main() -> Result<(), macroquad::Error> {
         if bogdanov_rect.contains(mouse_pos) && is_mouse_button_pressed(MouseButton::Left) {
             points += 1;
             bogdanov_scale = 0.8;
+            if points % 50 == 0 {
+                play_sound_once(&raaah_sound);
+            } else {
+                play_sound_once(&scream_sound);
+            }
         }
 
         // Drawing

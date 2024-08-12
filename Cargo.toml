@@ -4,5 +4,6 @@ authors = ["bogdanov", "Libsod"]
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-macroquad = "0.4.11"
+[dependencies.macroquad]
+version = "0.4.11"
+features = ["audio"]
