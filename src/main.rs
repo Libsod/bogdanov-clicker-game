@@ -49,9 +49,10 @@ async fn main() -> Result<(), macroquad::Error> {
     let bogdanov_texture = load_texture("./assets/bogdanov.png").await?;
     let title_font = load_ttf_font("./assets/fonts/Minecraft-font.ttf").await?;
 
+    let mut bogdanov_scale = 1.0;
     let mut bogdanov_dir = vec2(1.0, 1.0);
     let mut bogdanov_rect = Rect::new(0.0, 0.0, 200.0, 200.0);
-    let bogdanov_sprite = Sprite::new(&bogdanov_texture)
+    let mut bogdanov_sprite = Sprite::new(&bogdanov_texture)
         .with_size(bogdanov_rect.w, bogdanov_rect.h);
 
     let title_size = measure_text(TITLE, Some(&title_font), TITLE_FONT_SIZE, 1.0);
@@ -71,6 +72,9 @@ async fn main() -> Result<(), macroquad::Error> {
         // Moving bogdanov
         bogdanov_rect.x += bogdanov_dir.x * BOGDANOV_SPEED;
         bogdanov_rect.y += bogdanov_dir.y * BOGDANOV_SPEED;
+
+        // Animating bogdanov scale
+        bogdanov_scale += (1.0 - bogdanov_scale) * 0.2;
 
         // Bounce bogdanov off the screen edges
         if bogdanov_rect.left() <= 0.0 {
@@ -93,12 +97,20 @@ async fn main() -> Result<(), macroquad::Error> {
         // Increase points if click on bogdanov
         if bogdanov_rect.contains(mouse_pos) && is_mouse_button_pressed(MouseButton::Left) {
             points += 1;
+            bogdanov_scale = 0.8;
         }
 
         // Drawing
         clear_background(WHITE);
 
-        bogdanov_sprite.draw(bogdanov_rect.x, bogdanov_rect.y);
+        bogdanov_sprite.width = bogdanov_rect.w * bogdanov_scale;
+        bogdanov_sprite.height = bogdanov_rect.h * bogdanov_scale;
+        let bog_offset_x = bogdanov_rect.w - bogdanov_sprite.width;
+        let bog_offset_y = bogdanov_rect.h - bogdanov_sprite.height;
+        bogdanov_sprite.draw(
+            bogdanov_rect.x + bog_offset_x / 2.0,
+            bogdanov_rect.y + bog_offset_y / 2.0,
+        );
 
         let title_offset_x = (time * 6.0).cos() * 10.0;
         let title_offset_y = (time * 6.0).sin().abs() * -10.0;
