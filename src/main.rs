@@ -72,6 +72,8 @@ async fn main() -> Result<(), macroquad::Error> {
     loop {
         let time = get_time() as f32;
         let (screen_w, screen_h) = screen_size();
+        let center_x = screen_w / 2.0;
+        let center_y = screen_h / 2.0;
         let mouse_pos: Vec2 = mouse_position().into();
 
         // Moving bogdanov
@@ -104,18 +106,18 @@ async fn main() -> Result<(), macroquad::Error> {
         // Drawing
         clear_background(WHITE);
 
-        let center_x = screen_w / 2.0;
-        let center_y = screen_h / 2.0;
-
         bogdanov_sprite.draw(
             bogdanov_rect.x,
             bogdanov_rect.y,
         );
 
+        let title_offset_x = (time * 6.0).cos() * 10.0;
+        let title_offset_y = (time * 6.0).sin().abs() * -10.0;
+
         draw_text_ex(
             TITLE,
-            center_x - title_size.width / 2.0,
-            title_size.offset_y + 20.0,
+            center_x - title_size.width / 2.0 + title_offset_x,
+            title_size.offset_y + 20.0 + title_offset_y,
             title_text_params.clone(),
         );
 
@@ -123,8 +125,8 @@ async fn main() -> Result<(), macroquad::Error> {
         let points_size = measure_text(&points_str, Some(&title_font), TITLE_FONT_SIZE, 1.0);
         draw_text_ex(
             &points_str,
-            center_x - points_size.width / 2.0,
-            title_size.offset_y + 20.0 + points_size.offset_y,
+            center_x - points_size.width / 2.0 + title_offset_x,
+            title_size.offset_y + 20.0 + points_size.offset_y + title_offset_y,
             title_text_params.clone(),
         );
 
